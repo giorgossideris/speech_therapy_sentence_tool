@@ -91,7 +91,7 @@ def extract_corpus(word_counter: dict, corpus_path: str) -> None:
 
     with open(corpus_path, 'w', encoding='utf-8') as f:
         for word in sorted_words:
-            f.write(f"{word} {word_counter[word]}\n")
+            f.write(f"{word}\n")
     print("Extracting corpus finished.")
 
 def create_corpus(wikipedia_folder: str, output_folder: str) -> None:
