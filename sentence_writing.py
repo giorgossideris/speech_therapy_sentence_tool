@@ -51,4 +51,5 @@ def write_sentences(words: list, client: AzureOpenAI, model: str) -> list:
         query = f"λέξη: {word}."
         response = call_gpt(client, model, SYSTEM_MESSAGE, query, 0.8)
         sentences.append(response.strip())
+    print(f"Generated {len(sentences)} sentences.")
     return sentences

@@ -21,4 +21,5 @@ def select_words(comb: str, count: int, corpus_path: str) -> list:
                 words.append(line.strip())
                 if len(words) >= count:
                     break
+    print(f"Selected {len(words)} words with the combination '{comb}'")
     return words
