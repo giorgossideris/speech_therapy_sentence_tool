@@ -2,9 +2,6 @@
 import os
 import re
 from collections import defaultdict
-from dotenv import dotenv_values
-
-config = dotenv_values()
 
 def count_words(wikipedia_folder: str) -> dict:
     """Counts how many times a word appears in the wikipedia pages.
@@ -68,7 +65,7 @@ def clean_corpus(word_counter: dict) -> dict:
             # lower the first letter of the word
             lower_word = word[0].lower() + word[1:]
             if lower_word in word_counter:
-                word_counts_sum = word_counter[word] + word_counter[lower_word]
+                # keep the version that appears more frequently
                 if word_counter[word] < word_counter[lower_word]:
                     words_to_remove.append(word)
                     word_counter[lower_word] += word_counter[word]
@@ -82,30 +79,29 @@ def clean_corpus(word_counter: dict) -> dict:
     print("Cleaning corpus finished.")
     return word_counter
 
-def extract_corpus(word_counter: dict, output_folder: str) -> None:
+def extract_corpus(word_counter: dict, corpus_path: str) -> None:
     """Creates the corpus by writing the words to a file, in a descending order of frequency.
 
     Args:
         word_counter (dict): A dictionary with the words as keys and the number of times they appear as values.
-        output_folder (str): The folder where the corpus will be stored.
+        corpus_path (str): The path to the text file where the corpus will be saved.
     """
-    os.makedirs(output_folder, exist_ok=True)
     # sort the words by frequency
     sorted_words = sorted(word_counter, key=word_counter.get, reverse=True)
 
-    with open(os.path.join(output_folder, 'corpus.txt'), 'w', encoding='utf-8') as f:
+    with open(corpus_path, 'w', encoding='utf-8') as f:
         for word in sorted_words:
             f.write(f"{word} {word_counter[word]}\n")
     print("Extracting corpus finished.")
 
-def create_corpus():
-    """Creates the corpus by collecting and counting the words from the wikipedia pages."""
-    wikipedia_folder = config['WIKIPEDIA_FOLDER']
-    output_folder = config['CORPUS_FOLDER']
-
+def create_corpus(wikipedia_folder: str, output_folder: str) -> None:
+    """Creates the corpus by collecting and counting the words from the wikipedia pages.
+    
+    Args:
+        wikipedia_folder (str): The folder where the parsed wikipedia pages are stored. 
+            The wikipedia folder contains a list of folders, each folder contains a list of files.
+            As extracted by: https://github.com/attardi/wikiextractor/tree/master
+    """
     word_counter = count_words(wikipedia_folder)
-    word_counter = clean_corpus(word_counter)
-    extract_corpus(word_counter, output_folder)
-
-if __name__ == '__main__':
-    create_corpus()
+    word_counter_cleaned = clean_corpus(word_counter)
+    extract_corpus(word_counter_cleaned, output_folder)
