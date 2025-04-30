@@ -37,13 +37,9 @@ def run(to_create_corpus: bool, comb: str, count: int):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Speech Therapy Sentence Generation Tool")
-    parser.add_argument("--create_corpus", action="store_false", help="Create the corpus from Wikipedia pages. Use it only for the first time.")
+    parser.add_argument("--create_corpus", action="store_true", help="Create the corpus from Wikipedia pages. Use it only for the first time.")
     parser.add_argument("--comb", type=str, required=True, help="The combination of letters to search for in the words")
     parser.add_argument("--count", type=int, required=True, help="The number of words to select")
     args = parser.parse_args()
 
-    run(not args.create_corpus, args.comb, args.count)
-
-
-
-    
+    run(args.create_corpus, args.comb, args.count)
