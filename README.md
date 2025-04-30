@@ -9,7 +9,7 @@ This project is a specialized tool designed to support speech therapy by helping
 The process is structured around 3 componenets:
 1. **Corpus Creation**
     - *Goal*: Create a corpus of commonly used words in a given language.
-    - *Methodology*: Wikipedia[https://www.wikipedia.org/] articles are collected, and the words are extracted and sorted in descending order of frequency.
+    - *Methodology*: [Wikipedia](https://www.wikipedia.org/) articles are collected, and the words are extracted and sorted in descending order of frequency.
 2. **Words Selection**
     - *Goal*: Select words that include a specific combination of letters.
     - *Methodology*: A user-defined number of the most frequent words containing the specified letter combination is selected from the corpus. Stemming is used to promote variety.
