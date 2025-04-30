@@ -1,5 +1,5 @@
 # speech_therapy_sentence_tool
-This project is a specialized tool designed to support speech therapy by helping individuals improve their **reading** and **pronunciation** skills. It allows users to input specific letter combinations and automatically generates words containing those combinations, along with example sentences that incorporate them naturally. This focused approach helps individuals practice challenging phonemes in a meaningful and contextual way, making it especially useful for people with speech or reading difficulties, such as those with dyslexia or articulation disorders.
+This project is a specialized tool designed to support speech therapists in creating tailored **reading** and **pronunciation** materials for their clients. By allowing users to input specific letter combinations, the tool automatically generates commonly used words containing those combinations, along with simple example sentences that incorporate them. This enables therapists to quickly develop **focused exercises targeting specific phonemes** in a meaningful and contextual way, making it especially useful for designing interventions for individuals with speech or reading difficulties, such as dyslexia or articulation disorders.
 
 **Notes:**
 - *The sentence creation is done with an OpenAI model, so an OpenAI subscription key is required to execute the code.*
