@@ -1,5 +1,8 @@
 """This module selects words for practice that include specific combinations."""
 import os
+import snowballstemmer
+
+stemmer = snowballstemmer.stemmer('greek')
 
 def select_words(comb: str, count: int, corpus_path: str) -> list:
     """Selects words for practice that include specific combinations.
@@ -14,12 +17,18 @@ def select_words(comb: str, count: int, corpus_path: str) -> list:
     """
     corpus_path = os.path.join(corpus_path)
     words = []
+    stems_set = set()
     with open(corpus_path, 'r', encoding='utf-8') as f:
         lines = f.readlines()
-        for line in lines:
-            if comb in line:
-                words.append(line.strip())
-                if len(words) >= count:
-                    break
+    
+    for word in lines:
+        if comb in word:
+            stem = stemmer.stemWord(word[0])
+            if stem in stems_set: # avoid adding words with the same stem to have more variety
+                continue
+            words.append(word.strip())
+            stems_set.add(stem)
+            if len(words) >= count:
+                break
     print(f"Selected {len(words)} words with the combination '{comb}'")
     return words
